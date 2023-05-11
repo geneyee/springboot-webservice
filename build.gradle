@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.blog.project'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1-SNAPSHOT'+ new Date().format("yyyyMMddHHmmss")
 sourceCompatibility = '11'
 
 configurations {
@@ -26,12 +26,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'org.springframework.session:spring-session-jdbc'
-	implementation 'com.h2database:h2'
+	implementation 'com.h2database:h2:1.4.200'
 	annotationProcessor 'org.projectlombok:lombok:1.18.20'
 	compileOnly 'org.projectlombok:lombok:1.18.20'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
-	testImplementation 'org.assertj:assertj-core:3.23.1'
+//	testImplementation 'org.assertj:assertj-core:3.23.1'
 
 }
 
