@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         excludeFilters = {
                 @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SecurityConfig.class)
         })
-@MockBean(JpaMetamodelMappingContext.class)//에러나서 일단 달아줬음..
+//@MockBean(JpaMetamodelMappingContext.class)//에러나서 일단 달아줬음..
 public class HelloControllerTest {
 
     @Autowired
