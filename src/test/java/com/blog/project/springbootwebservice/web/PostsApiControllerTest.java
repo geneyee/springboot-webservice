@@ -63,12 +63,12 @@ public class PostsApiControllerTest {
     @WithMockUser(roles = "USER")
     public void Posts_등록된다() throws Exception {//insert
         //given
-        String title = "title";
-        String content = "content";
+        String title = "제목입니다.";
+        String content = "내용입니다.";
         PostsSaveRequestDto requestDto = PostsSaveRequestDto.builder()
                 .title(title)
                 .content(content)
-                .author("author")
+                .author("작성자")
                 .build();
 
         String url = "http://localhost:" + port + "/api/v1/posts";

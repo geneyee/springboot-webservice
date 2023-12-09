@@ -1,7 +1,10 @@
 package com.blog.project.springbootwebservice.service.posts;
 
+import com.blog.project.springbootwebservice.config.auth.LoginUser;
+import com.blog.project.springbootwebservice.config.auth.dto.SessionUser;
 import com.blog.project.springbootwebservice.domain.posts.Posts;
 import com.blog.project.springbootwebservice.domain.posts.PostsRepository;
+import com.blog.project.springbootwebservice.domain.user.User;
 import com.blog.project.springbootwebservice.web.dto.PostsListResponseDto;
 import com.blog.project.springbootwebservice.web.dto.PostsResponseDto;
 import com.blog.project.springbootwebservice.web.dto.PostsSaveRequestDto;
@@ -20,10 +23,18 @@ public class PostsService {
 
     private final PostsRepository postsRepository;
 
-
     @Transactional
-    public Long save(PostsSaveRequestDto requestDto) {
-        return postsRepository.save(requestDto.toEntity()).getId();
+    public PostsSaveRequestDto save(PostsSaveRequestDto requestDto, @LoginUser SessionUser user) {
+
+        Posts target = Posts.builder()
+                .title(requestDto.getTitle())
+                .content(requestDto.getContent())
+                .author(user.getEmail())
+                .build();
+
+       Posts entity = postsRepository.save(target);
+
+        return PostsSaveRequestDto.of(entity);
     }
 
    @Transactional

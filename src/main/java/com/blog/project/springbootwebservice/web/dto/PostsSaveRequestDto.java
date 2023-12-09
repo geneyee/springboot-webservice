@@ -28,4 +28,13 @@ public class PostsSaveRequestDto { //insert
                 .author(author)
                 .build();
     }
+
+    // entity -> dto
+    public static  PostsSaveRequestDto of(Posts entity) {
+        return new PostsSaveRequestDto(
+                entity.getTitle(),
+                entity.getContent(),
+                entity.getAuthor()
+        );
+    }
 }
