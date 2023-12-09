@@ -40,7 +40,7 @@ var main = {
         var id = $('#id').val();
 
         $.ajax({
-            type: 'POST',
+            type: 'PUT',
             url: '/api/v1/posts/'+id,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
