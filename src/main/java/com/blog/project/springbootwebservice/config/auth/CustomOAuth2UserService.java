@@ -28,7 +28,10 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         OAuth2UserService delegate = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = delegate.loadUser(userRequest);
 
+        // 현재 로그인 진해중인 서비스 구분(네이버 로그인인지 구글 로그인인지)
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
+
+        // OAuth2 로그인 진행 시 키가 되는 필드값(PK)
         String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint()
                                         .getUserNameAttributeName();
 
@@ -36,6 +39,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         User user = saveOrUpdate(attributes);
 
+        // session에 사용자 정보 저장
         httpSession.setAttribute("user", new SessionUser(user));
 
         return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority(user.getRoleKey())),
@@ -44,6 +48,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
     }
 
+    // DB에 이메일 존재하면 update, 존재하지 않으면 save
     private User saveOrUpdate(OAuthAttributes attributes) {
 
         User user = userRepository.findByEmail(attributes.getEmail())
