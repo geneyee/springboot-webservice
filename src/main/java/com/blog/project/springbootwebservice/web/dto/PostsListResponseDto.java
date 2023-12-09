@@ -1,6 +1,7 @@
 package com.blog.project.springbootwebservice.web.dto;
 
 import com.blog.project.springbootwebservice.domain.posts.Posts;
+import com.blog.project.springbootwebservice.domain.user.User;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -10,7 +11,7 @@ public class PostsListResponseDto {
 
     private Long id;
     private String title;
-    private String author;
+    private User author;
     private LocalDateTime modifiedDate;
 
     public PostsListResponseDto(Posts entity) {

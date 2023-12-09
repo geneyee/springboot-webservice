@@ -1,6 +1,7 @@
 package com.blog.project.springbootwebservice.web.dto;
 
 import com.blog.project.springbootwebservice.domain.posts.Posts;
+import com.blog.project.springbootwebservice.domain.user.User;
 import lombok.Getter;
 
 @Getter
@@ -9,7 +10,7 @@ public class PostsResponseDto {
     private Long id;
     private String title;
     private String content;
-    private String author;
+    private User author;
 
     public PostsResponseDto(Posts entity) {
         this.id = entity.getId();

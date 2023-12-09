@@ -2,6 +2,7 @@ package com.blog.project.springbootwebservice.web;
 
 import com.blog.project.springbootwebservice.config.auth.LoginUser;
 import com.blog.project.springbootwebservice.config.auth.dto.SessionUser;
+import com.blog.project.springbootwebservice.domain.user.User;
 import com.blog.project.springbootwebservice.service.posts.PostsService;
 import com.blog.project.springbootwebservice.web.dto.PostsResponseDto;
 import com.blog.project.springbootwebservice.web.dto.PostsSaveRequestDto;

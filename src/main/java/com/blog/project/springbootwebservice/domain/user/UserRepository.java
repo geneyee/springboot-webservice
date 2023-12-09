@@ -1,5 +1,6 @@
 package com.blog.project.springbootwebservice.domain.user;
 
+import com.blog.project.springbootwebservice.config.auth.dto.SessionUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

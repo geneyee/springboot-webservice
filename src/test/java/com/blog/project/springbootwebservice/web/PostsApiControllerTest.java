@@ -2,6 +2,9 @@ package com.blog.project.springbootwebservice.web;
 
 import com.blog.project.springbootwebservice.domain.posts.Posts;
 import com.blog.project.springbootwebservice.domain.posts.PostsRepository;
+import com.blog.project.springbootwebservice.domain.user.Role;
+import com.blog.project.springbootwebservice.domain.user.User;
+import com.blog.project.springbootwebservice.domain.user.UserRepository;
 import com.blog.project.springbootwebservice.web.dto.PostsSaveRequestDto;
 import com.blog.project.springbootwebservice.web.dto.PostsUpdateRequestDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -42,6 +45,9 @@ public class PostsApiControllerTest {
     private PostsRepository postsRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private WebApplicationContext context;
 
     private MockMvc mvc;
@@ -68,7 +74,7 @@ public class PostsApiControllerTest {
         PostsSaveRequestDto requestDto = PostsSaveRequestDto.builder()
                 .title(title)
                 .content(content)
-                .author("작성자")
+                .authorEmail("user@test.com")
                 .build();
 
         String url = "http://localhost:" + port + "/api/v1/posts";
@@ -99,10 +105,20 @@ public class PostsApiControllerTest {
     @WithMockUser(roles = "USER")
     public void Posts_수정된다() throws Exception {//update
         //given
+        User testUser = userRepository.findByEmail("user@test.com")
+                .orElseGet(()-> {
+                    User user = User.builder()
+                            .email("user@test.com")
+                            .name("test")
+                            .role(Role.USER)
+                            .build();
+                    return userRepository.save(user);
+                });
+
         Posts savedPosts = postsRepository.save(Posts.builder()
                 .title("title")
                 .content("content")
-                .author("author")
+                .author(testUser)
                 .build());
 
         Long updateId = savedPosts.getId();

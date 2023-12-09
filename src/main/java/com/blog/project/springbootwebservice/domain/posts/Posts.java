@@ -1,6 +1,7 @@
 package com.blog.project.springbootwebservice.domain.posts;
 
 import com.blog.project.springbootwebservice.domain.BaseTimeEntity;
+import com.blog.project.springbootwebservice.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,10 +23,12 @@ public class Posts extends BaseTimeEntity {//post table
     @Column(columnDefinition = "TEXT", nullable = false)//not null
     private String content;
 
-    private String author;
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private User author;
 
     @Builder
-    public Posts(String title, String content, String author) {
+    public Posts(String title, String content, User author) {
         this.title = title;
         this.content = content;
         this.author = author;

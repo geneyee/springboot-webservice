@@ -5,6 +5,7 @@ import com.blog.project.springbootwebservice.config.auth.dto.SessionUser;
 import com.blog.project.springbootwebservice.domain.posts.Posts;
 import com.blog.project.springbootwebservice.domain.posts.PostsRepository;
 import com.blog.project.springbootwebservice.domain.user.User;
+import com.blog.project.springbootwebservice.domain.user.UserRepository;
 import com.blog.project.springbootwebservice.web.dto.PostsListResponseDto;
 import com.blog.project.springbootwebservice.web.dto.PostsResponseDto;
 import com.blog.project.springbootwebservice.web.dto.PostsSaveRequestDto;
@@ -22,14 +23,17 @@ import java.util.stream.Collectors;
 public class PostsService {
 
     private final PostsRepository postsRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     public PostsSaveRequestDto save(PostsSaveRequestDto requestDto, @LoginUser SessionUser user) {
 
+        User currentUser = userRepository.findByEmail(user.getEmail()).orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다."));
+
         Posts target = Posts.builder()
                 .title(requestDto.getTitle())
                 .content(requestDto.getContent())
-                .author(user.getEmail())
+                .author(currentUser)
                 .build();
 
        Posts entity = postsRepository.save(target);
