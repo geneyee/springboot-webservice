@@ -39,7 +39,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         User user = saveOrUpdate(attributes);
 
-        // session에 사용자 정보 저장
+        // session에 사용자 정보 저장 -  시큐리티에서도 세션에 security context를 저장하는데 왜 또 세션에 따로 user를 저장할까 궁금해졌다..
+        // 그 이유는 저장에 포인트를 두지말고 '필요한 정보만' 빠르게 조회하기 위함일 수도 있다는 것. 목적을 구분해서 생각해볼 필요가 있음을 알게되었다!
         httpSession.setAttribute("user", new SessionUser(user));
 
         return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority(user.getRoleKey())),
